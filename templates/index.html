@@ -3,20 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Spam Detection</title>
+    <title>Spam Filter</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Spam Detection Tool</h1>
-        <form action="/predict" method="post">
-            <textarea name="message" rows="4" cols="50" placeholder="Enter your message here..."></textarea><br>
-            <button type="submit">Check Spam</button>
-        </form>
-        {% if result %}
-            <h2>Result: {{ result }}</h2>
-            <h3>Message: {{ message }}</h3>
-        {% endif %}
+    <h1>Spam Filter</h1>
+    <form action="/" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.message.label }}<br>
+        {{ form.message(rows=5, cols=35, placeholder="Enter your message here...") }}<br>
+        {{ form.submit }}
+    </form>
+
+    {% if result %}
+    <div>
+        <h2>Result: {{ result }}</h2>
+        <p>Message: {{ message }}</p>
     </div>
+    {% endif %}
+
+    <h3>Dataset Summary</h3>
+    <ul>
+        <li>Total Messages: {{ summary.total_messages }}</li>
+        <li>Spam Count: {{ summary.spam_count }}</li>
+        <li>Ham Count: {{ summary.ham_count }}</li>
+        <li>Average Message Length: {{ summary.average_length | round(2) }} characters</li>
+    </ul>
+    <h3>Model Performance Visualization</h3>
+    <img src="../static/f1_score_barchart.png" alt="F1 Score Bar Chart">
+    <img src="../static/confusion_matrix.png" alt="Confusion Matrix">
+    <img src="../static/precision_recall_curve.png" alt="Precision Recall Curve">
 </body>
 </html>

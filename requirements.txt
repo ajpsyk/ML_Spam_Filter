@@ -1,4 +1,9 @@
 Flask
-scikit-learn
+flask-wtf
+wtforms
 pandas
 nltk
+scikit-learn
+seaborn
+matplotlib
+plotly
